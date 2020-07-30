@@ -85,6 +85,9 @@ class SiswaController extends Controller
         $siswa->forceDelete();
         return redirect('/siswa/trash');
     }
+    public function rizal(){
+        echo 'edan';
+    }
     
   
 }
