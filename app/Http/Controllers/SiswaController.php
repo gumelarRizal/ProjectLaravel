@@ -3,14 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\SiswaModel;
+use App\Siswa;
 use Illuminate\Support\Facades\DB;
 
 class SiswaController extends Controller
 {
     public function index(){
-        // $Siswa = SiswaModel::where('Siswa_id','1')->get();
-        $Siswa = SiswaModel::all();
+        // $Siswa = Siswa::where('Siswa_id','1')->get();
+        $Siswa = Siswa::all();
+        //dd($Siswa);
         return view('Siswa',['Siswa'=>$Siswa]);
     }
     public function tambah(){
@@ -22,7 +23,7 @@ class SiswaController extends Controller
             'umur' => 'required|numeric',
             'alamat' => 'required'
         ]);
-        SiswaModel::create([
+        Siswa::create([
             'Siswa_nama' => $request->nama,
             'Siswa_umur' => $request->umur,
             'Siswa_alamat' => $request->alamat
@@ -30,8 +31,8 @@ class SiswaController extends Controller
         return redirect('/siswa');
     }
     public function GetDataId($id){
-        $siswa = SiswaModel::find($id);
-        // $siswa2 = DB::table('TB_M_SISWA')->where('Siswa_ID',$id)->get();
+        $siswa = Siswa::find($id);
+        // $siswa2 = DB::table('Siswa')->where('Siswa_ID',$id)->get();
         // dd($siswa);
         return view('SiswaEdit',['siswa'=>$siswa]);
     }
@@ -42,7 +43,7 @@ class SiswaController extends Controller
             'umur' => 'required|numeric',
             'alamat' => 'required'
         ]);
-        $siswa = SiswaModel::find($id);
+        $siswa = Siswa::find($id);
         $siswa->Siswa_nama = $request->nama;
         $siswa->Siswa_umur = $request->umur;
         $siswa->Siswa_alamat = $request->alamat;
@@ -51,43 +52,41 @@ class SiswaController extends Controller
     }
     public function Delete($id)
     {
-        $siswa = SiswaModel::find($id);
+        $siswa = Siswa::find($id);
         $siswa->delete();
         return redirect()->back();
         // return redirect('/siswa');
     }
     public function Trash()
     {
-        $siswa = SiswaModel::onlyTrashed()->get();
+        $siswa = Siswa::onlyTrashed()->get();
         // dd($siswa);
         return view('siswaTrash',['siswa'=>$siswa]);
     }
     public function Kembalikan($id)
     {
-        $siswa = SiswaModel::onlyTrashed()->where('id',$id);
+        $siswa = Siswa::onlyTrashed()->where('id',$id);
         $siswa->restore();
         return redirect('/siswa/trash');
     }
     public function KembalikanSemua(){
-        $siswa = SiswaModel::onlyTrashed();
+        $siswa = Siswa::onlyTrashed();
         $siswa->restore();
         return redirect('siswa/trash');
     }
     public function HapusPermanen($id)
     {
-        $siswa = SiswaModel::onlyTrashed()->where('id',$id);
+        $siswa = Siswa::onlyTrashed()->where('id',$id);
         $siswa->forceDelete();
         return redirect('/siswa/trash');
     }
     public function HapusPermanenSemua()
     {
-        $siswa = SiswaModel::onlyTrashed();
+        $siswa = Siswa::onlyTrashed();
         $siswa->forceDelete();
         return redirect('/siswa/trash');
     }
-    public function rizal(){
-        echo 'edan';
-    }
+    
     
   
 }
