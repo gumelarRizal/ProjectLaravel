@@ -6,7 +6,7 @@
 @section('judul_halaman','Halaman Home')
     {{-- isi bagian konten --}}
     {{-- cara penulisan isi section yang panjang --}}
-    @section('konten')
+    @section('content')
         <p>Ini adalah Halaman Home</p>
         <p>Selamat Datang</p>
 

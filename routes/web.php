@@ -58,3 +58,35 @@ Route::get('/siswa/hapus_permanen_semua','SiswaController@HapusPermanenSemua');
 Route::get('/formValid_input','formValidController@input');
 Route::post('/formValid_process','formValidController@process');
 //end form validation
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+
+//enkripsi / dekripsi
+Route::get('/enkrips','RizalController@enkripsi');
+//hashing
+Route::get('/hash','RizalController@hash');
+
+//upload
+Route::get('/upload','UploadController@Upload');
+Route::get('/unggah','UploadController@Unggah');
+Route::post('/upload/proses','UploadController@ProsesUpload');
+Route::post('/unggah/proses','UploadController@ProsesUnggah');
+Route::get('/unggah/hapus/{id}','UploadController@UnggahHapus');
+
+//session
+Route::get('/session/tampil','Session\SessionController@tampilkanSession');
+Route::get('/session/buat','Session\SessionController@buatSession');
+Route::get('/session/hapus','Session\SessionController@hapusSession');
+
+// notifikas
+Route::get('/pesan','Session\NotifController@index');
+Route::get('/pesan/sukses','Session\NotifController@sukses');
+Route::get('/pesan/peringatan','Session\NotifController@peringatan');
+Route::get('/pesan/gagal','Session\NotifController@gagal');
+
+// mail
+Route::get('/kirimemail', 'Mail\RizalMailController@index');
+
+
